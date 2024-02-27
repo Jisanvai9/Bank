@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matching Game</title>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+    .green {
+        background-color: lightgreen;
+    }
+    .red {
+        background-color: lightcoral;
+    }
+</style>
+</head>
+<body>
+
+<h2>আদর্শ বিচ্যুতি নির্ণয় - Made by Jihad</h2>
+<p>আপনার তথ্য পূরণ করুন</p>
+
+<table>
+  <tr>
+    <th>বছর</th>
+    <th>আয় (%)</th>
+  </tr>
+  <tr>
+    <td>১ম বছর </td>
+    <td><input type="number" id="value1"></td>
+  </tr>
+  <tr>
+    <td>২য় বছর </td>
+    <td><input type="number" id="value2"></td>
+  </tr>
+  <tr>
+    <td>৩য় বছর</td>
+    <td><input type="number" id="value3"></td>
+  </tr>
+  <tr>
+    <td>৪র্থ বছর </td>
+    <td><input type="number" id="value4"></td>
+  </tr>
+  <tr>
+    <td>৫ম বছর</td>
+    <td><input type="number" id="value5"></td>
+  </tr>
+</table>
+
+<button onclick="calculate()">নির্ণয়</button>
+
+<p id="result"></p>
+
+<script>
+function calculate() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var value2 = parseFloat(document.getElementById("value2").value);
+    var value3 = parseFloat(document.getElementById("value3").value);
+    var value4 = parseFloat(document.getElementById("value4").value);
+    var value5 = parseFloat(document.getElementById("value5").value);
+
+    var sum = value1 + value2 + value3 + value4 + value5;
+    var mean = sum / 5;
+
+    var result1 = Math.pow(value1 - mean, 2);
+    var result2 = Math.pow(value2 - mean, 2);
+    var result3 = Math.pow(value3 - mean, 2);
+    var result4 = Math.pow(value4 - mean, 2);
+    var result5 = Math.pow(value5 - mean, 2);
+
+    var sumOfSquares = result1 + result2 + result3 + result4 + result5;
+    var variance = sumOfSquares / 4;
+
+    var resultElement = document.getElementById("result");
+    resultElement.innerHTML = "Variance: " + variance.toFixed(2);
+
+    var cells = document.getElementsByTagName("input");
+    for (var i = 0; i < cells.length; i++) {
+        if (Math.pow(parseFloat(cells[i].value) - mean, 2) > variance) {
+            cells[i].classList.add("red");
+            cells[i].classList.remove("green");
+        } else {
+            cells[i].classList.add("green");
+            cells[i].classList.remove("red");
+        }
+    }
+}
+</script>
+
+</body>
+</html>
